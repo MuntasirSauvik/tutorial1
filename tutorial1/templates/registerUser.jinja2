@@ -8,20 +8,23 @@
     Register
 </strong><br>
 {{ message }}
+{% if errors|length %}
+{{ errors|join('<br>')|safe }}
+{% endif %}
 </p>
 <form action="{{ url }}" method="post">
 <input type="hidden" name="next" value="{{ next_url }}">
 <div class="form-group">
     <label for="login">Enter a new User Name</label>
-    <input type="text" name="login" value="{{ login }}">
+    <input type="text" name="username">
 </div>
 <div class="form-group">
     <label for="password">Enter your desired password</label>
-    <input type="password" name="password">
+    <input type="password" name="password1">
 </div>
 <div class="form-group">
     <label for="password">Re-enter your password</label>
-    <input type="password" name="password">
+    <input type="password" name="password2">
 </div>
 <div class="form-group">
     <button type="submit" name="form.submitted" value="Register" class="btn btn-default">Register</button>

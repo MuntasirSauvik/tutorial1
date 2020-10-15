@@ -1,3 +1,4 @@
+from sqlalchemy.exc import IntegrityError
 from pyramid.httpexceptions import HTTPFound
 from pyramid.security import (
     remember,
@@ -40,21 +41,43 @@ def registerUser(request):
     if not next_url:
         next_url = request.route_url('view_wiki')
     message = ''
-    login = ''
+    username = ''
+    errors = []
     if 'form.submitted' in request.params:
-        login = request.params['login']
-        password = request.params['password']
-        user = request.dbsession.query(User).filter_by(name=login).first()
-        if user is not None and user.check_password(password):
-            headers = remember(request, user.id)
-            return HTTPFound(location=next_url, headers=headers)
+        username = request.params['username']
+        password1 = request.params['password1']
+        password2 = request.params['password2']
+
+        # Validation
+        if len(username.strip()) == 0:
+            errors.append('Username cannot be blank')
+        if len(password1) == 0:
+            errors.append('Password cannot be blank')
+        if password1 != password2:
+            errors.append('Passwords do not match')
+
+        if not len(errors):
+            # Add object to database
+            new_user = User()
+            new_user.name = username
+            new_user.role = 'basic'
+            new_user.set_password(password1)
+            request.dbsession.add(new_user)
+            try:
+                request.dbsession.flush()
+                headers = remember(request, new_user.id)
+                return HTTPFound(location=request.route_url('view_wiki'), headers=headers)
+            except IntegrityError:
+                errors.append('Username already exists')
+
         message = 'Try Again'
 
     return dict(
         message=message,
+        errors=errors,
         url=request.route_url('registerUser'),
         next_url=next_url,
-        login=login,
+        username=username,
         )
 
 @view_config(route_name='logout')
