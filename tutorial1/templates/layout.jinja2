@@ -35,7 +35,8 @@
             <div class="content">
             {% if request.user is none %}
             <p class="pull-right">
-            <a href="{{ request.route_url('login') }}">Login</a>
+            <li><a href="{{ request.route_url('login') }}">Login</a></li>
+            <li><a href="{{ request.route_url('registerUser') }}">Register</a></li>
             </p>
             {% else %}
             <p class="pull-right">
