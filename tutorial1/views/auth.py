@@ -34,6 +34,29 @@ def login(request):
         login=login,
         )
 
+@view_config(route_name='registerUser', renderer='../templates/registerUser.jinja2')
+def registerUser(request):
+    next_url = request.params.get('next', request.referrer)
+    if not next_url:
+        next_url = request.route_url('view_wiki')
+    message = ''
+    login = ''
+    if 'form.submitted' in request.params:
+        login = request.params['login']
+        password = request.params['password']
+        user = request.dbsession.query(User).filter_by(name=login).first()
+        if user is not None and user.check_password(password):
+            headers = remember(request, user.id)
+            return HTTPFound(location=next_url, headers=headers)
+        message = 'Try Again'
+
+    return dict(
+        message=message,
+        url=request.route_url('registerUser'),
+        next_url=next_url,
+        login=login,
+        )
+
 @view_config(route_name='logout')
 def logout(request):
     headers = forget(request)
@@ -43,4 +66,9 @@ def logout(request):
 @forbidden_view_config()
 def forbidden_view(request):
     next_url = request.route_url('login', _query={'next': request.url})
+    return HTTPFound(location=next_url)
+
+@forbidden_view_config()
+def forbidden_view(request):
+    next_url = request.route_url('registerUser', _query={'next': request.url})
     return HTTPFound(location=next_url)

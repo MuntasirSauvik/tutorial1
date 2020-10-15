@@ -52,7 +52,7 @@ class ViewWikiTests(unittest.TestCase):
         testing.tearDown()
 
     def _callFUT(self, request):
-        from tutorial1.views.default import view_wiki
+        from tutorial1.views.pages import view_wiki
         return view_wiki(request)
 
     def test_it(self):
@@ -63,7 +63,7 @@ class ViewWikiTests(unittest.TestCase):
 
 class ViewPageTests(BaseTest):
     def _callFUT(self, request):
-        from tutorial1.views.default import view_page
+        from tutorial1.views.pages import view_page
         return view_page(request)
 
     def test_it(self):
@@ -95,7 +95,7 @@ class ViewPageTests(BaseTest):
 
 class AddPageTests(BaseTest):
     def _callFUT(self, request):
-        from tutorial1.views.default import add_page
+        from tutorial1.views.pages import add_page
         return add_page(request)
 
     def test_it_pageexists(self):
@@ -135,7 +135,7 @@ class AddPageTests(BaseTest):
 
 class EditPageTests(BaseTest):
     def _callFUT(self, request):
-        from tutorial1.views.default import edit_page
+        from tutorial1.views.pages import edit_page
         return edit_page(request)
 
     def makeContext(self, page):
