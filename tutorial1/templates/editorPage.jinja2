@@ -4,14 +4,13 @@
 
 {% block content %}
 <p>{{ content|safe }}</p>
-
+<h3>Editor Options</h3>
 <p class="pull-right">
-    The following are all the registered users in the system:
-    <br>
-    {% for i in res %}
-        {{ i }}
-        <br>
-    {% endfor %}
+    <li><a href="{{ request.route_url('user_list') }}">View List of all Users</a></li>
+    <li><a href="{{ request.route_url('user_add') }}">Add a new user</a></li>
+    <li><a href="{{ request.route_url('user_modify') }}">Edit an user profile</a></li>
+    <li><a href="{{ request.route_url('user_remove') }}">Delete an user</a></li>
+
 </p>
 <p>You can return to the
 <a href="{{request.route_url('view_page', pagename='FrontPage')}}">FrontPage</a>.
