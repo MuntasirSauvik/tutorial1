@@ -5,10 +5,22 @@
 {% block content %}
 <p>{{ content|safe }}</p>
 <h3>Users in the system:</h3>
+<p>Click on the user name to make changes to the profile:</p>
 <p class="pull-right">
+<br>
+ <table style="width:100%">
+  <tr>
+    <th>Name</th>
+    <th>id</th>
+    <th>Role</th>
+  </tr>
+    {% for i in res %}
+      <tr>
+        <td><a href="{{ request.route_url('user_modify', userId=i.id) }}">{{ i.name }}</a></td>
+        <td>{{ i.id }}</td>
+        <td>{{ i.role }}</td>
+      </tr>
+    {% endfor %}
+</p>
 
-</p>
-<p>You can return to the
-<a href="{{request.route_url('view_page', pagename='FrontPage')}}">FrontPage</a>.
-</p>
 {% endblock content %}

@@ -18,7 +18,7 @@ def includeme(config):
     config.add_route('logout', '/logout')
     config.add_route('user_list', '/userList')
     config.add_route('user_add', '/userAdd')
-    config.add_route('user_modify', '/userEdit')
+    config.add_route('user_modify', '/userModify/{userId}')
     config.add_route('user_remove', '/userRemove')
     config.add_route('view_page', '/{pagename}', factory=page_factory)
     config.add_route('add_page', '/add_page/{pagename}',

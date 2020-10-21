@@ -2,13 +2,51 @@
  <title>AddUser</title>
 {% block subtitle %}{{page.name}} - {% endblock subtitle %}
 
-{% block content %}
-<p>{{ content|safe }}</p>
-<h3>Add new User:</h3>
-<p class="pull-right">
+{% block title %}Register - {% endblock title %}
 
+{% block content %}
+<p>
+<strong>
+    Add a new user
+</strong><br>
+{{ message }}
+{% if errors|length %}
+{{ errors|join('<br>')|safe }}
+{% endif %}
 </p>
-<p>You can return to the
-<a href="{{request.route_url('view_page', pagename='FrontPage')}}">FrontPage</a>.
-</p>
+<form action="{{ url }}" method="post">
+<input type="hidden" name="next" value="{{ next_url }}">
+
+    <table>
+        <tr>
+            <div class="form-group">
+                <td><label for="role">Role</label></td>
+                <td><input type="text" name="role"></td>
+            </div>
+        </tr>
+        <tr>
+            <div class="form-group">
+                <td><label for="login">Name</label></td>
+                <td><input type="text" name="username"></td>
+            </div>
+        </tr>
+        <tr>
+        <div class="form-group">
+            <td><label for="password">Password</label></td>
+            <td><input type="password" name="password1"></td>
+        </div>
+        </tr>
+        <tr>
+        <div class="form-group">
+            <td><label for="password">Re-enter password</label></td>
+            <td><input type="password" name="password2"></td>
+        </div>
+        </tr>
+        <tr>
+        <div class="form-group">
+            <td align="left"><button type="submit" name="form.submitted" value="Register" >Register</button></td>
+        </div>
+        </tr>
+    </table>
+</form>
 {% endblock content %}
