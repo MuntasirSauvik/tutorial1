@@ -16,7 +16,7 @@ from ..models import User
 def login(request):
     next_url = request.params.get('next', request.referrer)
     if not next_url:
-        next_url = request.route_url('view_wiki')
+        next_url = request.route_url('view_page', pagename='FrontPage')
     message = ''
     login = ''
     if 'form.submitted' in request.params:

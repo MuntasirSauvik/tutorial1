@@ -12,7 +12,7 @@ wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
 
 @view_config(route_name='view_wiki')
 def view_wiki(request):
-    next_url = request.route_url('view_page', pagename='FrontPage')
+    next_url = request.route_url('login', pagename='FrontPage')
     return HTTPFound(location=next_url)
 
 @view_config(route_name='view_page', renderer='../templates/wiki/view.jinja2', permission='view')
