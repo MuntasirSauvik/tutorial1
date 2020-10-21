@@ -4,7 +4,10 @@ from docutils.core import publish_parts
 
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
-
+from pyramid.security import (
+    remember,
+    forget,
+    )
 from .. import models
 
 # regular expression used to find WikiWords
@@ -12,8 +15,9 @@ wikiwords = re.compile(r"\b([A-Z]\w+[A-Z]+\w+)")
 
 @view_config(route_name='view_wiki')
 def view_wiki(request):
+    headers = forget(request)
     next_url = request.route_url('login', pagename='FrontPage')
-    return HTTPFound(location=next_url)
+    return HTTPFound(location=next_url, headers=headers)
 
 @view_config(route_name='view_page', renderer='../templates/wiki/view.jinja2', permission='view')
 def view_page(request):

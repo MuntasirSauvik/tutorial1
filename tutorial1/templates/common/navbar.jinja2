@@ -7,16 +7,17 @@
 
   <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="{{ request.route_url('registerUser') }}">Register </a>
-      </li>
         {% if not request.user %}
-          <li class="nav-item">
-            <a class="nav-link {{ 'active' if app_category == 'login' }}" href="{{ request.route_url('login') }}">Login</a>
-          </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ request.route_url('registerUser') }}">Register </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if app_category == 'login' }}" href="{{ request.route_url('login') }}">Login</a>
+            </li>
         {% else %}
-          <li class="nav-item">
-            <a class="nav-link" href="{{ request.route_url('logout') }}">Logout</a>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ request.route_url('logout') }}">Logout</a>
           </li>
         {% endif %}
         {% if request.user %}
