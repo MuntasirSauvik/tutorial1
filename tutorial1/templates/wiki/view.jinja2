@@ -1,4 +1,4 @@
-{% extends 'layout.jinja2' %}
+{% extends '../common/layout.jinja2' %}
 
 {% block subtitle %}{{page.name}} - {% endblock subtitle %}
 
@@ -11,6 +11,14 @@
 </p>
 <p>
     Viewing <strong>{{page.name}}</strong>, created by <strong>{{page.creator.name}}</strong>.
+</p>
+<p class="pull-right">
+    {{request.user.name}}
+    <br>
+    {% for i in res %}
+        {{ i }}
+        <br>
+    {% endfor %}
 </p>
 <p>You can return to the
 <a href="{{request.route_url('view_page', pagename='FrontPage')}}">FrontPage</a>.

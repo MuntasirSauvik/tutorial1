@@ -15,7 +15,7 @@ def view_wiki(request):
     next_url = request.route_url('view_page', pagename='FrontPage')
     return HTTPFound(location=next_url)
 
-@view_config(route_name='view_page', renderer='../templates/view.jinja2', permission='view')
+@view_config(route_name='view_page', renderer='../templates/wiki/view.jinja2', permission='view')
 def view_page(request):
     page = request.context.page
 
@@ -29,10 +29,11 @@ def view_page(request):
             add_url = request.route_url('add_page', pagename=word)
             return '<a href="%s">%s</a>' % (add_url, escape(word))
 
+    res = request.dbsession.query(models.User.name).all()
     content = publish_parts(page.data, writer_name='html')['html_body']
     content = wikiwords.sub(add_link, content)
     edit_url = request.route_url('edit_page', pagename=page.name)
-    return dict(page=page, content=content, edit_url=edit_url)
+    return dict(page=page, content=content, edit_url=edit_url, res=res)
 
 @view_config(route_name='edit_page', renderer='../templates/edit.jinja2', permission='edit')
 def edit_page(request):

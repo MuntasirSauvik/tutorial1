@@ -29,11 +29,13 @@ def login(request):
         message = 'Failed login'
 
     return dict(
+        app_category='login',
         message=message,
         url=request.route_url('login'),
         next_url=next_url,
         login=login,
         )
+
 
 @view_config(route_name='registerUser', renderer='../templates/registerUser.jinja2')
 def registerUser(request):
@@ -80,16 +82,19 @@ def registerUser(request):
         username=username,
         )
 
+
 @view_config(route_name='logout')
 def logout(request):
     headers = forget(request)
     next_url = request.route_url('view_wiki')
     return HTTPFound(location=next_url, headers=headers)
 
+
 @forbidden_view_config()
 def forbidden_view(request):
     next_url = request.route_url('login', _query={'next': request.url})
     return HTTPFound(location=next_url)
+
 
 @forbidden_view_config()
 def forbidden_view(request):

@@ -1,0 +1,30 @@
+{% block navbar %}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{{ request.route_url('registerUser') }}">Register </a>
+      </li>
+        {% if not request.user %}
+          <li class="nav-item">
+            <a class="nav-link {{ 'active' if app_category == 'login' }}" href="{{ request.route_url('login') }}">Login</a>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{{ request.route_url('logout') }}">Logout</a>
+          </li>
+        {% endif %}
+        {% if request.user %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">Chat Rooms</a>
+          </li>
+        {% endif %}
+    </ul>
+  </div>
+</nav>
+{% endblock navbar %}
