@@ -1,0 +1,14 @@
+{% extends '../common/layout.jinja2' %}
+ <title>AddUser</title>
+{% block subtitle %}{{page.name}} - {% endblock subtitle %}
+
+{% block content %}
+<p>{{ content|safe }}</p>
+<h3>Add new User:</h3>
+<p class="pull-right">
+
+</p>
+<p>You can return to the
+<a href="{{request.route_url('view_page', pagename='FrontPage')}}">FrontPage</a>.
+</p>
+{% endblock content %}
