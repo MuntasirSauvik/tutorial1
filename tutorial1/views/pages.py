@@ -19,6 +19,13 @@ def view_wiki(request):
     next_url = request.route_url('login', pagename='FrontPage')
     return HTTPFound(location=next_url, headers=headers)
 
+@view_config(route_name='editor_page', renderer='../templates/editorPage.jinja2')
+def editor_page(request):
+    return {}
+    #headers = forget(request)
+    #next_url = request.route_url('editor_page', pagename='EditorPage')
+    #return HTTPFound(location=next_url, headers=headers)
+
 @view_config(route_name='view_page', renderer='../templates/wiki/view.jinja2', permission='view')
 def view_page(request):
     page = request.context.page
@@ -33,7 +40,7 @@ def view_page(request):
             add_url = request.route_url('add_page', pagename=word)
             return '<a href="%s">%s</a>' % (add_url, escape(word))
 
-    res = request.dbsession.query(models.User.name).all()
+    res = request.dbsession.query(models.User).all()
     content = publish_parts(page.data, writer_name='html')['html_body']
     content = wikiwords.sub(add_link, content)
     edit_url = request.route_url('edit_page', pagename=page.name)
@@ -64,3 +71,5 @@ def add_page(request):
         return HTTPFound(location=next_url)
     save_url = request.route_url('add_page', pagename=pagename)
     return dict(pagename=pagename, pagedata='', save_url=save_url)
+
+

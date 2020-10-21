@@ -14,10 +14,10 @@ from ..models import User
 
 @view_config(route_name='login', renderer='../templates/login.jinja2')
 def login(request):
-    next_url = request.params.get('next', request.referrer)
+    next_url = request.params.get('next')
     if not next_url:
         next_url = request.route_url('view_page', pagename='FrontPage')
-    message = ''
+    message = request.params.get('message', '')
     login = ''
     if 'form.submitted' in request.params:
         login = request.params['login']
@@ -25,6 +25,8 @@ def login(request):
         user = request.dbsession.query(User).filter_by(name=login).first()
         if user is not None and user.check_password(password):
             headers = remember(request, user.id)
+            if user.role == "editor":
+                next_url = request.route_url('editor_page')
             return HTTPFound(location=next_url, headers=headers)
         message = 'Failed login'
 
@@ -39,9 +41,6 @@ def login(request):
 
 @view_config(route_name='registerUser', renderer='../templates/registerUser.jinja2')
 def registerUser(request):
-    next_url = request.params.get('next', request.referrer)
-    if not next_url:
-        next_url = request.route_url('view_wiki')
     message = ''
     username = ''
     errors = []
@@ -78,7 +77,6 @@ def registerUser(request):
         message=message,
         errors=errors,
         url=request.route_url('registerUser'),
-        next_url=next_url,
         username=username,
         )
 
@@ -90,13 +88,7 @@ def logout(request):
     return HTTPFound(location=next_url, headers=headers)
 
 
-@forbidden_view_config()
-def forbidden_view(request):
-    next_url = request.route_url('login', _query={'next': request.url})
-    return HTTPFound(location=next_url)
-
-
-@forbidden_view_config()
-def forbidden_view(request):
-    next_url = request.route_url('registerUser', _query={'next': request.url})
-    return HTTPFound(location=next_url)
+#@forbidden_view_config()
+#def forbidden_view(request):
+#    next_url = request.route_url('login', _query={'next': request.url, 'message': 'You must be logged in to view that page'})
+#    return HTTPFound(location=next_url)
