@@ -50,8 +50,7 @@ def user_add(request):
             request.dbsession.add(new_user)
             try:
                 request.dbsession.flush()
-                headers = remember(request, new_user.id)
-                return HTTPFound(location=request.route_url('editor_page'), headers=headers)
+                return HTTPFound(location=request.route_url('editor_page'))
             except IntegrityError:
                 errors.append('Username already exists')
 
@@ -67,8 +66,48 @@ def user_add(request):
 
 @view_config(route_name='user_modify', renderer='../templates/users/userModify.jinja2')
 def user_modify(request):
-    print(request.matchdict)
-    return {}
+    # if len(role.strip()) == 0 and len(username.strip()) == 0 and len(password1) == 0:
+    #     errors.append('Nothing to update')
+    # if len(username.strip()) == 0:
+    message = ''
+    username = ''
+    role = ''
+    errors = []
+    res = request.dbsession.query(models.User).get(request.matchdict["userId"])
+
+    if 'form.submitted' in request.params:
+        username = request.params['username']
+        password1 = request.params['password1']
+        password2 = request.params['password2']
+        role = request.params['role']
+
+        # Validation
+        if len(role.strip()) == 0 and len(username.strip()) == 0 and len(password1) == 0:
+            errors.append('Nothing to update')
+        if len(role.strip()) != 0 and role not in ["basic", "editor"]:
+            errors.append('Roles can either be basic or editor')
+        if len(role.strip()) != 0 and role in ["basic", "editor"] and res is request.user:
+            errors.append('You cannot change your own role')
+        if len(password1) != 0 and password1 != password2:
+            errors.append('Passwords do not match')
+
+        # Update Information
+        if not len(errors):
+            # Update role
+            if len(role.strip()) != 0:
+                res.role = role
+            if len(username.strip()) != 0:
+                res.name = username
+            if len(password1) != 0 and password1 == password2:
+                res.set_password(password1)
+
+    return dict(
+        message=message,
+        errors=errors,
+        url=request.route_url('user_modify', userId=request.matchdict["userId"]),
+        username=username,
+        res=res,
+    )
 
 
 @view_config(route_name='user_remove', renderer='../templates/users/userRemove.jinja2')
