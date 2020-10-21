@@ -18,13 +18,17 @@
         {% else %}
             <li class="nav-item">
                 <a class="nav-link" href="{{ request.route_url('logout') }}">Logout</a>
-          </li>
+            </li>
         {% endif %}
         {% if request.user %}
           <li class="nav-item">
             <a class="nav-link" href="#">Chat Rooms</a>
           </li>
         {% endif %}
+          <li style="float: right">
+{#              User: {{request.user.name}}#}
+              <a class="nav-link" href="#">User: {{request.user.name}}</a>
+          </li>
     </ul>
   </div>
 </nav>
