@@ -3,6 +3,7 @@ from sqlalchemy import (
     Column,
     Integer,
     Text,
+    Boolean,
 )
 
 from .meta import Base
@@ -14,6 +15,7 @@ class User(Base):
     id = Column(Integer, primary_key=True)
     name = Column(Text, nullable=False, unique=True)
     role = Column(Text, nullable=False)
+    loggedIn = Column(Boolean, nullable=True)
 
     password_hash = Column(Text)
 

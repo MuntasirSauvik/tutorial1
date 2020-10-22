@@ -25,6 +25,7 @@ def login(request):
         user = request.dbsession.query(User).filter_by(name=login).first()
         if user is not None and user.check_password(password):
             headers = remember(request, user.id)
+            user.loggedIn = True
             if user.role == "editor":
                 next_url = request.route_url('editor_page')
             return HTTPFound(location=next_url, headers=headers)
@@ -84,6 +85,7 @@ def registerUser(request):
 @view_config(route_name='logout')
 def logout(request):
     headers = forget(request)
+    request.user.loggedIn = False
     next_url = request.route_url('view_wiki')
     return HTTPFound(location=next_url, headers=headers)
 

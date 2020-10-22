@@ -13,12 +13,14 @@
     <th>Name</th>
     <th>id</th>
     <th>Role</th>
+    <th>Active</th>
   </tr>
     {% for i in res %}
       <tr>
         <td><a href="{{ request.route_url('user_modify', userId=i.id) }}">{{ i.name }}</a></td>
         <td>{{ i.id }}</td>
         <td>{{ i.role }}</td>
+        <td>{{ i.loggedIn }}</td>
       </tr>
     {% endfor %}
  </table>

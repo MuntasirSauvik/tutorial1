@@ -40,6 +40,7 @@ def user_add(request):
             new_user = models.User()
             new_user.name = username
             new_user.role = role
+            new_user.loggedIn = False
             new_user.set_password(password1)
             request.dbsession.add(new_user)
             try:
