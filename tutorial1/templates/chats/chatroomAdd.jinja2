@@ -1,0 +1,50 @@
+{% extends '../common/layout.jinja2' %}
+ <title>AddChatroom</title>
+{% block subtitle %}{{page.name}} - {% endblock subtitle %}
+
+{% block title %}Create Room - {% endblock title %}
+
+{% block content %}
+<p>
+<strong>
+    Add a new chatroom
+</strong><br>
+{{ message }}
+{% if errors|length %}
+{{ errors|join('<br>')|safe }}
+{% endif %}
+</p>
+<form action="{{ url }}" method="post">
+<input type="hidden" name="next" value="{{ next_url }}">
+
+    <table>
+
+        <tr>
+            <div class="form-group">
+                <td><label for="roomDescription">Room Description</label></td>
+                <td><input type="string" name="roomDescription"></td>
+            </div>
+        </tr>
+
+        <tr>
+            <div class="form-group">
+                <td><label for="door">Door</label></td>
+                <td>
+                  <fieldset id="door">
+                    <input type="radio" value="True" name="door"checked="checked">Open
+                      <br>
+                    <input type="radio" value="False" name="door">Closed
+                  </fieldset>
+                </td>
+            </div>
+        </tr>
+
+        <tr>
+        <div class="form-group">
+            <td align="left"><button type="submit" name="form.submitted" value="Register" >Add</button></td>
+        </div>
+        </tr>
+
+    </table>
+</form>
+{% endblock content %}

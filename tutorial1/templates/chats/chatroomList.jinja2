@@ -19,7 +19,7 @@
 {#        <td><a href="{{ request.route_url('user_modify', userId=i.id) }}">{{ i.name }}</a></td>#}
         <td>{{ i.id }}</td>
         <td>{{ i.roomDescription }}</td>
-        <td>{{ i.door }}</td>
+        <td>{{ 'Open' if i.door else 'Closed' }}</td>
       </tr>
     {% endfor %}
  </table>
