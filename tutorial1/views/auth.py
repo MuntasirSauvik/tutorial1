@@ -88,9 +88,3 @@ def logout(request):
     request.user.loggedIn = False
     next_url = request.route_url('view_wiki')
     return HTTPFound(location=next_url, headers=headers)
-
-
-#@forbidden_view_config()
-#def forbidden_view(request):
-#    next_url = request.route_url('login', _query={'next': request.url, 'message': 'You must be logged in to view that page'})
-#    return HTTPFound(location=next_url)
