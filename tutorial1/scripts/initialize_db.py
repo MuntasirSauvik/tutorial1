@@ -16,6 +16,9 @@ def setup_models(dbsession):
     basic.set_password('basic')
     dbsession.add(basic)
 
+    chatroom1 = models.Chatroom(roomDescription='The first chat room')
+    dbsession.add(chatroom1)
+
     page = models.Page(
         name='FrontPage',
         creator=editor,
