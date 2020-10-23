@@ -116,3 +116,9 @@ def chatroom_remove(request):
         errors=errors,
         url=request.route_url('chatroom_remove'),
     )
+
+
+@view_config(route_name='chatrooms', renderer='../templates/chats/chatrooms.jinja2')
+def chatrooms(request):
+    res = request.dbsession.query(models.Chatroom).all()
+    return dict(res=res)
