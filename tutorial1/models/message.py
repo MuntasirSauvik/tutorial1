@@ -19,8 +19,8 @@ class Message(Base):
     message_text = Column(Text, nullable=True)
     dateTime = Column(DateTime, default=datetime.datetime.utcnow)
 
-    creator_id = Column(ForeignKey('users.id'), nullable=False)
+    creator_id = Column(Integer, ForeignKey('users.id'), nullable=False)
     creator = relationship('User', backref='created_messages')
 
-    room_id = Column(ForeignKey('chatrooms.id'), nullable=False)
+    room_id = Column(Integer, ForeignKey('chatrooms.id'), nullable=False)
     room = relationship('Chatroom', backref='created_messages_room')

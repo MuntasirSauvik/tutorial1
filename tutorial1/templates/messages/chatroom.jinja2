@@ -7,8 +7,29 @@
 <p class="pull-right">
    <strong Welcome to chatroom: {{ res1.roomDescription }} </strong>
 </p>
-<p> You can join the chat by tying your message in the chat box</p>
+<p> You can join the chat by tying your message in the chat box</p><br>
+{{ message }}
 
+<div>
+<p class="pull-right">
+<br>
+ <table style="width:100%">
+  <tr>
+    <th>User</th>
+    <th>Message</th>
+    <th>Time</th>
+  </tr>
+    {% for i in res2 %}
+      <tr>
+        <td>{{ i.creator.name }}</td>
+        <td>{{ i.message_text }}</td>
+        <td>{{ i.dateTime }}</td>
+      </tr>
+    {% endfor %}
+ </table>
+</p>
+</p>
+</div>
 
 <form action="{{ url }}" method="post">
 <input type="hidden" name="next" value="{{ next_url }}">

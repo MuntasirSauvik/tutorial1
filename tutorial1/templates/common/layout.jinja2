@@ -42,6 +42,10 @@
 
 <main role="main" class="container">
 
+    {% if request.session.peek_flash() %}
+    <div class="alert alert-info">{{ request.session.pop_flash() | join(", ") }}</div>
+    {% endif %}
+
   {% block content %}{% endblock %}
 
 </main><!-- /.container -->

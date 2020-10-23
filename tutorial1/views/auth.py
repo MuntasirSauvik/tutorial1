@@ -87,4 +87,4 @@ def logout(request):
     headers = forget(request)
     request.user.loggedIn = False
     next_url = request.route_url('view_wiki')
-    return HTTPFound(location=next_url, headers=headers,)
+    return HTTPFound(location=next_url, headers=headers)
