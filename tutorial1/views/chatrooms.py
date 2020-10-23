@@ -122,3 +122,9 @@ def chatroom_remove(request):
 def chatrooms(request):
     res = request.dbsession.query(models.Chatroom).all()
     return dict(res=res)
+
+
+@view_config(route_name='chatroom', renderer='../templates/messages/chatroom.jinja2')
+def chatroom(request):
+    res1 = request.dbsession.query(models.Chatroom).get(request.matchdict["roomId"])
+    return dict(res1=res1)
