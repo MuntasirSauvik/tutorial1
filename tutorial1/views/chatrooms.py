@@ -127,4 +127,8 @@ def chatrooms(request):
 @view_config(route_name='chatroom', renderer='../templates/messages/chatroom.jinja2')
 def chatroom(request):
     res1 = request.dbsession.query(models.Chatroom).get(request.matchdict["roomId"])
+    if not res1.door:
+        next_url = request.route_url('chatrooms')
+        return HTTPFound(location=next_url)
+
     return dict(res1=res1)
