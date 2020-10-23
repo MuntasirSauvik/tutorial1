@@ -46,6 +46,7 @@ def view_page(request):
     edit_url = request.route_url('edit_page', pagename=page.name)
     return dict(page=page, content=content, edit_url=edit_url, res=res)
 
+
 @view_config(route_name='edit_page', renderer='../templates/edit.jinja2', permission='edit')
 def edit_page(request):
     page = request.context.page
@@ -58,6 +59,7 @@ def edit_page(request):
         pagedata=page.data,
         save_url=request.route_url('edit_page', pagename=page.name),
         )
+
 
 @view_config(route_name='add_page', renderer='../templates/edit.jinja2', permission='create')
 def add_page(request):

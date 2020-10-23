@@ -12,6 +12,39 @@ def chatroom_list(request):
     return dict(res=res)
 
 
+@view_config(route_name='chatroom_modify', renderer='../templates/chats/chatroomModify.jinja2')
+def chatroom_modify(request):
+    message = ''
+    errors = []
+    res = request.dbsession.query(models.Chatroom).get(request.matchdict["roomId"])
+    door = False
+
+    if 'form.submitted' in request.params:
+        roomDescription = request.params['roomDescription']
+        if request.params['door'] == "False":
+            door = False
+        elif request.params['door'] == "True":
+            door = True
+
+        # Validation
+        if len(roomDescription.strip()) == 0 and door == res.door:
+            errors.append('Nothing to update, enter ')
+
+        # Update Information
+        if not len(errors):
+            if len(roomDescription.strip()) != 0:
+                res.roomDescription = roomDescription
+            if door != res.door:
+                res.door = door
+
+    return dict(
+        message=message,
+        errors=errors,
+        url=request.route_url('chatroom_modify', roomId=request.matchdict["roomId"]),
+        res=res,
+    )
+
+
 @view_config(route_name='chatroom_add', renderer='../templates/chats/chatroomAdd.jinja2')
 def chatroom_add(request):
     message = ''

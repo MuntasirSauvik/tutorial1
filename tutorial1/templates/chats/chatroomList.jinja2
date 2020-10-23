@@ -5,7 +5,7 @@
 {% block content %}
 <p>{{ content|safe }}</p>
 <h3>Chatrooms in the system:</h3>
-<p>Click on the chatroom name to make changes to it:</p>
+<p>Click on the chatroom id to make changes to it:</p>
 <p class="pull-right">
 <br>
  <table style="width:100%">
@@ -16,8 +16,7 @@
   </tr>
     {% for i in res %}
       <tr>
-{#        <td><a href="{{ request.route_url('user_modify', userId=i.id) }}">{{ i.name }}</a></td>#}
-        <td>{{ i.id }}</td>
+        <td><a href="{{ request.route_url('chatroom_modify', roomId=i.id) }}">{{ i.id }}</a></td>
         <td>{{ i.roomDescription }}</td>
         <td>{{ 'Open' if i.door else 'Closed' }}</td>
       </tr>

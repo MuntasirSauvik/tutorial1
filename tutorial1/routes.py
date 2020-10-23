@@ -23,6 +23,7 @@ def includeme(config):
     config.add_route('chatroom_list', '/chatroomList')
     config.add_route('chatroom_add', '/chatroomAdd')
     config.add_route('chatroom_remove', '/chatroomRemove')
+    config.add_route('chatroom_modify', '/chatroomModify/{roomId}')
     config.add_route('view_page', '/{pagename}', factory=page_factory)
     config.add_route('add_page', '/add_page/{pagename}',
                      factory=new_page_factory)

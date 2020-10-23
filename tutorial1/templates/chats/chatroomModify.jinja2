@@ -1,0 +1,62 @@
+{% extends '../common/layout.jinja2' %}
+ <title>ModifyChatrooms</title>
+{% block subtitle %}{{page.name}} - {% endblock subtitle %}
+
+{% block title %}Modify - {% endblock title %}
+
+{% block content %}
+<h3>Edit Chatroom:</h3>
+<br>
+{{ message }}
+{% if errors|length %}
+{{ errors|join('<br>')|safe }}
+{% endif %}
+
+<form action="{{ url }}" method="post">
+    <input type="hidden" name="next" value="{{ next_url }}">
+        <p class="pull-right">
+            <table style="width:100%">
+                <tr>
+                    <th>Room ID</th>
+                    <th>Room Description</th>
+                    <th>Door Open</th>
+                </tr>
+                <tr>
+                    <td>{{ res.id }}</td>
+                    <td>{{ res.roomDescription }}</td>
+                    <td>{{ 'Open' if res.door else 'Closed' }}</td>
+              </tr>
+            </table>
+        </p>
+        <p class="pull-right">
+            <table>
+                <tr>
+                    <div class="form-group">
+                        <td><label for="roomDescription">Change Room Description</label></td>
+                        <td><input type="String(64)" name="roomDescription"></td>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <td><label for="door">Door</label></td>
+                        <td>
+                            <fieldset id="door">
+                                <input type="radio" value="True" name="door"checked="checked">Open
+                                <br>
+                                <input type="radio" value="False" name="door">Closed
+                            </fieldset>
+                        </td>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <td align="left"><button type="submit" name="form.submitted" value="Register" >Update</button></td>
+                    </div>
+                </tr>
+            </table>
+        </p>
+</form>
+<p>You can return to the
+<a href="{{request.route_url('view_page', pagename='FrontPage')}}">FrontPage</a>.
+</p>
+{% endblock content %}
