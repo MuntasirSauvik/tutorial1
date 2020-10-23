@@ -51,3 +51,35 @@ def chatroom_add(request):
         errors=errors,
         url=request.route_url('chatroom_add'),
         )
+
+
+@view_config(route_name='chatroom_remove', renderer='../templates/chats/chatroomRemove.jinja2')
+def chatroom_remove(request):
+    message = ''
+    errors = []
+
+    if 'form.submitted' in request.params:
+        roomId = request.params['roomId']
+        password1 = request.params['password1']
+
+        # Validation
+        if len(roomId.strip()) == 0 and len(password1) == 0:
+            errors.append('Nothing entered')
+        elif len(password1) != 0 and not request.user.check_password(password1):
+            errors.append('You entered a wrong Password')
+        else:
+            try:
+                room = request.dbsession.query(models.Chatroom.id).filter_by(id=roomId).one()
+                print(room)
+                room1 = request.dbsession.query(models.Chatroom).filter_by(id=roomId).one()
+                request.dbsession.delete(room1)
+            except NoResultFound:
+                errors.append('Chatroom does not exist')
+
+        messages = '\n'.join(errors)
+
+    return dict(
+        message=message,
+        errors=errors,
+        url=request.route_url('chatroom_remove'),
+    )

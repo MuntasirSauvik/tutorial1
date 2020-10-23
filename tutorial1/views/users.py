@@ -109,7 +109,6 @@ def user_modify(request):
 def user_remove(request):
     message = ''
     username = ''
-    role = ''
     errors = []
 
     if 'form.submitted' in request.params:
@@ -131,16 +130,6 @@ def user_remove(request):
                 errors.append('Username does not exist')
 
         messages = '\n'.join(errors)
-
-        # # Update Information
-        # if not len(errors):
-        #     # Update role
-        #     if len(role.strip()) != 0:
-        #         res.role = role
-        #     if len(username.strip()) != 0:
-        #         res.name = username
-        #     if len(password1) != 0 and password1 == password2:
-        #         res.set_password(password1)
 
     return dict(
         message=message,
