@@ -21,3 +21,6 @@ class Message(Base):
 
     creator_id = Column(ForeignKey('users.id'), nullable=False)
     creator = relationship('User', backref='created_messages')
+
+    room_id = Column(ForeignKey('chatrooms.id'), nullable=False)
+    room = relationship('Chatroom', backref='created_messages_room')

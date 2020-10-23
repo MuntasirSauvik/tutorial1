@@ -29,6 +29,7 @@ def setup_models(dbsession):
     message1 = models.Message(
         message_text='This is a test message',
         creator=editor,
+        room=chatroom1,
     )
     dbsession.add(message1)
 
