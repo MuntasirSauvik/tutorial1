@@ -17,12 +17,14 @@
   <tr>
     <th>User</th>
     <th>Message</th>
+    <th>mid</th>
     <th>Time</th>
   </tr>
     {% for i in res2 %}
       <tr>
         <td>{{ i.creator.name }}</td>
         <td>{{ i.message_text }}</td>
+        <td>{{ i.id }}</td>
         <td>{{ i.dateTime }}</td>
       </tr>
     {% endfor %}

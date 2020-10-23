@@ -1,0 +1,42 @@
+{% extends '../common/layout.jinja2' %}
+ <title>DeleteMessage</title>
+{% block subtitle %}{{page.name}} - {% endblock subtitle %}
+
+{% block content %}
+<h3>Delete Message:</h3>
+<p><strong>Enter the mid of the message you want to delete followed by your password.</strong></p>
+
+<br>
+{{ message }}
+{% if errors|length %}
+{{ errors|join('<br>')|safe }}
+{% endif %}
+
+<form action="{{ url }}" method="post">
+    <input type="hidden" name="next" value="{{ next_url }}">
+        <p class="pull-right">
+            <table>
+                <tr>
+                    <div class="form-group">
+                        <td><label for="message_id">Enter mid</label></td>
+                        <td><input type="Integer" name="message_id"></td>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <td><label for="password">Your Password</label></td>
+                        <td><input type="password" name="password1"></td>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <td align="left"><button type="submit" name="form.submitted" value="Register" >Delete</button></td>
+                    </div>
+                </tr>
+            </table>
+        </p>
+</form>
+<p>You can return to the
+<a href="{{request.route_url('view_page', pagename='FrontPage')}}">FrontPage</a>.
+</p>
+{% endblock content %}

@@ -50,3 +50,36 @@ def chatroom(request):
 
     return dict(res1=room, res2=messages, next_url=next_url)
 
+
+@view_config(route_name='message_remove', renderer='../templates/messages/messageRemove.jinja2')
+def user_remove(request):
+    message = ''
+    username = ''
+    errors = []
+
+    if 'form.submitted' in request.params:
+        message_id = request.params['message_id']
+        password1 = request.params['password1']
+
+        # Validation
+        if len(message_id.strip()) == 0 and len(password1) == 0:
+            errors.append('Nothing entered')
+        elif len(password1) != 0 and not request.user.check_password(password1):
+            errors.append('You entered a wrong Password')
+        else:
+            try:
+                user_message = request.dbsession.query(models.Message.message_text).filter_by(id=message_id).one()
+                print(user_message)
+                message1 = request.dbsession.query(models.Message).filter_by(id=message_id).one()
+                request.dbsession.delete(message1)
+            except NoResultFound:
+                errors.append('Message_id does not exist')
+
+        messages = '\n'.join(errors)
+
+    return dict(
+        message=message,
+        errors=errors,
+        url=request.route_url('message_remove'),
+        username=username,
+    )

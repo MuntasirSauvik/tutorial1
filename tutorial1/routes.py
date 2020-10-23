@@ -23,6 +23,7 @@ def includeme(config):
     config.add_route('chatroom_list', '/chatroomList')
     config.add_route('chatroom_add', '/chatroomAdd')
     config.add_route('chatroom_remove', '/chatroomRemove')
+    config.add_route('message_remove', '/messageRemove')
     config.add_route('chatrooms', '/chatrooms')
     config.add_route('chatroom', '/chatroom/{roomId}')
     config.add_route('chatroom_modify', '/chatroomModify/{roomId}')
