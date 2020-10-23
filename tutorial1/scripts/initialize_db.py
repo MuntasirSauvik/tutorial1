@@ -26,6 +26,12 @@ def setup_models(dbsession):
     )
     dbsession.add(page)
 
+    message1 = models.Message(
+        message_text='This is a test message',
+        creator=editor,
+    )
+    dbsession.add(message1)
+
 
 def parse_args(argv):
     parser = argparse.ArgumentParser()

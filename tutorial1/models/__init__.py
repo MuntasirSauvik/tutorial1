@@ -8,6 +8,7 @@ import zope.sqlalchemy
 from .page import Page  # flake8: noqa
 from .user import User  # flake8: noqa
 from .chatroom import Chatroom  # flake8: noqa
+from .message import Message  # flake8: noqa
 
 
 # run configure_mappers after defining all of the models to ensure

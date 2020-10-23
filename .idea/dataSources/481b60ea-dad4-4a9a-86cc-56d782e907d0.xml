@@ -12,156 +12,185 @@
     <collation id="5" parent="1" name="RTRIM"/>
     <table id="6" parent="2" name="alembic_version"/>
     <table id="7" parent="2" name="chatrooms"/>
-    <table id="8" parent="2" name="pages"/>
-    <table id="9" parent="2" name="sqlite_master">
+    <table id="8" parent="2" name="messages"/>
+    <table id="9" parent="2" name="pages"/>
+    <table id="10" parent="2" name="sqlite_master">
       <System>1</System>
     </table>
-    <table id="10" parent="2" name="users"/>
-    <column id="11" parent="6" name="version_num">
+    <table id="11" parent="2" name="users"/>
+    <column id="12" parent="6" name="version_num">
       <Position>1</Position>
       <DataType>VARCHAR(32)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="12" parent="6" name="sqlite_autoindex_alembic_version_1">
+    <index id="13" parent="6" name="sqlite_autoindex_alembic_version_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>version_num</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="13" parent="6" name="alembic_version_pkc">
+    <key id="14" parent="6" name="alembic_version_pkc">
       <ColNames>version_num</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_alembic_version_1</UnderlyingIndexName>
     </key>
-    <column id="14" parent="7" name="id">
+    <column id="15" parent="7" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="15" parent="7" name="roomDescription">
+    <column id="16" parent="7" name="roomDescription">
       <Position>2</Position>
       <DataType>VARCHAR(64)|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="16" parent="7" name="door">
+    <column id="17" parent="7" name="door">
       <Position>3</Position>
       <DataType>BOOLEAN|0s</DataType>
     </column>
-    <index id="17" parent="7" name="sqlite_autoindex_chatrooms_1">
+    <index id="18" parent="7" name="sqlite_autoindex_chatrooms_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>roomDescription</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="18" parent="7" name="pk_chatrooms">
+    <key id="19" parent="7" name="pk_chatrooms">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="19" parent="7" name="uq_chatrooms_roomDescription">
+    <key id="20" parent="7" name="uq_chatrooms_roomDescription">
       <ColNames>roomDescription</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_chatrooms_1</UnderlyingIndexName>
     </key>
-    <check id="20" parent="7" name="ck_chatrooms_sa_constraint_c8e68b">
+    <check id="21" parent="7" name="ck_chatrooms_sa_constraint_b8d668">
       <Predicate>door IN (0, 1)</Predicate>
     </check>
-    <column id="21" parent="8" name="id">
+    <column id="22" parent="8" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="22" parent="8" name="name">
+    <column id="23" parent="8" name="message_text">
       <Position>2</Position>
       <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
     </column>
-    <column id="23" parent="8" name="data">
+    <column id="24" parent="8" name="dateTime">
       <Position>3</Position>
-      <DataType>TEXT|0s</DataType>
-      <NotNull>1</NotNull>
+      <DataType>DATETIME|0s</DataType>
     </column>
-    <column id="24" parent="8" name="creator_id">
+    <column id="25" parent="8" name="creator_id">
       <Position>4</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <index id="25" parent="8" name="sqlite_autoindex_pages_1">
-      <NameSurrogate>1</NameSurrogate>
-      <ColNames>name</ColNames>
-      <ColumnCollations></ColumnCollations>
-      <Unique>1</Unique>
-    </index>
-    <key id="26" parent="8" name="pk_pages">
+    <key id="26" parent="8" name="pk_messages">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="27" parent="8" name="uq_pages_name">
-      <ColNames>name</ColNames>
-      <UnderlyingIndexName>sqlite_autoindex_pages_1</UnderlyingIndexName>
-    </key>
-    <foreign-key id="28" parent="8" name="fk_pages_creator_id_users">
+    <foreign-key id="27" parent="8" name="fk_messages_creator_id_users">
       <ColNames>creator_id</ColNames>
       <RefTableName>users</RefTableName>
       <RefKeyName>pk_users</RefKeyName>
       <RefColNames>id</RefColNames>
     </foreign-key>
-    <column id="29" parent="9" name="type">
-      <Position>1</Position>
-      <DataType>text|0s</DataType>
-    </column>
-    <column id="30" parent="9" name="name">
-      <Position>2</Position>
-      <DataType>text|0s</DataType>
-    </column>
-    <column id="31" parent="9" name="tbl_name">
-      <Position>3</Position>
-      <DataType>text|0s</DataType>
-    </column>
-    <column id="32" parent="9" name="rootpage">
-      <Position>4</Position>
-      <DataType>int|0s</DataType>
-    </column>
-    <column id="33" parent="9" name="sql">
-      <Position>5</Position>
-      <DataType>text|0s</DataType>
-    </column>
-    <column id="34" parent="10" name="id">
+    <column id="28" parent="9" name="id">
       <Position>1</Position>
       <DataType>INTEGER|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="35" parent="10" name="name">
+    <column id="29" parent="9" name="name">
       <Position>2</Position>
       <DataType>TEXT|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="36" parent="10" name="role">
+    <column id="30" parent="9" name="data">
       <Position>3</Position>
       <DataType>TEXT|0s</DataType>
       <NotNull>1</NotNull>
     </column>
-    <column id="37" parent="10" name="loggedIn">
+    <column id="31" parent="9" name="creator_id">
       <Position>4</Position>
-      <DataType>BOOLEAN|0s</DataType>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
     </column>
-    <column id="38" parent="10" name="password_hash">
-      <Position>5</Position>
-      <DataType>TEXT|0s</DataType>
-    </column>
-    <index id="39" parent="10" name="sqlite_autoindex_users_1">
+    <index id="32" parent="9" name="sqlite_autoindex_pages_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>name</ColNames>
       <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
-    <key id="40" parent="10" name="pk_users">
+    <key id="33" parent="9" name="pk_pages">
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="41" parent="10" name="uq_users_name">
+    <key id="34" parent="9" name="uq_pages_name">
+      <ColNames>name</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_pages_1</UnderlyingIndexName>
+    </key>
+    <foreign-key id="35" parent="9" name="fk_pages_creator_id_users">
+      <ColNames>creator_id</ColNames>
+      <RefTableName>users</RefTableName>
+      <RefKeyName>pk_users</RefKeyName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="36" parent="10" name="type">
+      <Position>1</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="37" parent="10" name="name">
+      <Position>2</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="38" parent="10" name="tbl_name">
+      <Position>3</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="39" parent="10" name="rootpage">
+      <Position>4</Position>
+      <DataType>int|0s</DataType>
+    </column>
+    <column id="40" parent="10" name="sql">
+      <Position>5</Position>
+      <DataType>text|0s</DataType>
+    </column>
+    <column id="41" parent="11" name="id">
+      <Position>1</Position>
+      <DataType>INTEGER|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="42" parent="11" name="name">
+      <Position>2</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="43" parent="11" name="role">
+      <Position>3</Position>
+      <DataType>TEXT|0s</DataType>
+      <NotNull>1</NotNull>
+    </column>
+    <column id="44" parent="11" name="loggedIn">
+      <Position>4</Position>
+      <DataType>BOOLEAN|0s</DataType>
+    </column>
+    <column id="45" parent="11" name="password_hash">
+      <Position>5</Position>
+      <DataType>TEXT|0s</DataType>
+    </column>
+    <index id="46" parent="11" name="sqlite_autoindex_users_1">
+      <NameSurrogate>1</NameSurrogate>
+      <ColNames>name</ColNames>
+      <ColumnCollations></ColumnCollations>
+      <Unique>1</Unique>
+    </index>
+    <key id="47" parent="11" name="pk_users">
+      <ColNames>id</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <key id="48" parent="11" name="uq_users_name">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_users_1</UnderlyingIndexName>
     </key>
-    <check id="42" parent="10" name="ck_users_sa_constraint_e5bb2b">
+    <check id="49" parent="11" name="ck_users_sa_constraint_5ee737">
       <Predicate>&quot;loggedIn&quot; IN (0, 1)</Predicate>
     </check>
   </database-model>
