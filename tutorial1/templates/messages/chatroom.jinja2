@@ -7,6 +7,29 @@
 <p class="pull-right">
    <strong Welcome to chatroom: {{ res1.roomDescription }} </strong>
 </p>
+
+
+<div>
+<p> <strong> Users in the chatroom: </strong></p>
+<p class="pull-right">
+
+ <table style="width:100%">
+  <tr>
+    <th width=100px>User Name</th>
+    <th width=70px>User Id</th>
+    <th>Role</th>
+  </tr>
+    {% for i in res3 %}
+      <tr>
+        <td>{{ i.name }}</td>
+        <td>{{ i.id }}</td>
+        <td>{{ i.role }}</td>
+      </tr>
+    {% endfor %}
+ </table>
+</p>
+</div>
+
 <p> You can join the chat by tying your message in the chat box</p><br>
 {{ message }}
 
@@ -29,7 +52,6 @@
       </tr>
     {% endfor %}
  </table>
-</p>
 </p>
 </div>
 

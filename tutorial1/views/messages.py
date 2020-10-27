@@ -47,15 +47,14 @@ def chatroom(request):
         return HTTPFound(location=next_url)
 
     key = redis_key_generator(room, request.user)
-    # request.redis.set(key, 1, ex=100)
-    request.redis.set(key, 1)
+    request.redis.set(key, 1, ex=100)
 
     key_list = [entry.decode('utf8') for entry in request.redis.keys(pattern="room_members.{}.*".format(room.id))]
 
     print("The following are the keys in the current chat room :")
     print(key_list)
 
-    active_user_ids = get_active_users(key_list, request)
+    active_user = get_active_users(key_list, request)
 
 
     if 'form.submitted' in request.params:
@@ -75,7 +74,7 @@ def chatroom(request):
 
     message = '\n'.join(errors)
 
-    return dict(res1=room, res2=messages, next_url=next_url)
+    return dict(res1=room, res2=messages, res3=active_user, next_url=next_url)
 
 
 @view_config(route_name='message_remove', renderer='../templates/messages/messageRemove.jinja2')
