@@ -14,5 +14,6 @@ def main(global_config, **settings):
         config.include('.routes')
         config.include('.security')
 
+        config.include('pyramid_redis')
         config.scan()
     return config.make_wsgi_app()

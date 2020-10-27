@@ -25,11 +25,14 @@ def chatroom(request):
     username = ''
     errors = []
 
-
     if not room.door:
         request.session.flash('Cannot enter chatroom {}, it is closed'.format(room.id))
         next_url = request.route_url('chatrooms')
         return HTTPFound(location=next_url)
+
+    key = 'my_test_value'
+    request.redis.set(key, 1, ex=100)
+    print(request.redis.keys(pattern="my*"))
 
     if 'form.submitted' in request.params:
         message_text = request.params['message']
@@ -52,7 +55,7 @@ def chatroom(request):
 
 
 @view_config(route_name='message_remove', renderer='../templates/messages/messageRemove.jinja2')
-def user_remove(request):
+def message_remove(request):
     message = ''
     username = ''
     errors = []
