@@ -2,12 +2,28 @@ from sqlalchemy.orm.exc import NoResultFound
 from sqlalchemy.exc import IntegrityError
 from pyramid.httpexceptions import HTTPFound
 from pyramid.view import view_config
-from pyramid.security import (
-    remember,
-    forget,
-    )
+import string
 
 from .. import models
+
+
+# Helper function to generate keys for redis
+def redis_key_generator(room, user):
+    if room is None or user is None:
+        raise ValueError('room and user must be specified')
+    return 'room_members.{}.{}'.format(room.id, user.id)
+
+
+# Helper function to get active users
+def get_active_users(key_list, request):
+    user_id_list = []
+    for key in key_list:
+        parsed_key = key.split(".")
+        user_id_list.append(parsed_key[2])
+
+    return request.dbsession.query(models.User) \
+        .filter(models.User.id.in_(user_id_list)) \
+        .all()
 
 
 @view_config(route_name='chatroom', renderer='../templates/messages/chatroom.jinja2')
@@ -30,9 +46,17 @@ def chatroom(request):
         next_url = request.route_url('chatrooms')
         return HTTPFound(location=next_url)
 
-    key = 'my_test_value'
-    request.redis.set(key, 1, ex=100)
-    print(request.redis.keys(pattern="my*"))
+    key = redis_key_generator(room, request.user)
+    # request.redis.set(key, 1, ex=100)
+    request.redis.set(key, 1)
+
+    key_list = [entry.decode('utf8') for entry in request.redis.keys(pattern="room_members.{}.*".format(room.id))]
+
+    print("The following are the keys in the current chat room :")
+    print(key_list)
+
+    active_user_ids = get_active_users(key_list, request)
+
 
     if 'form.submitted' in request.params:
         message_text = request.params['message']
